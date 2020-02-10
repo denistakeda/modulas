@@ -30,7 +30,7 @@ interface GotoQuestionAction {
 export function gotoQuestion(n: number): GotoQuestionAction {
     return {
         type: OOP_GOTO_QUESTION,
-        n
+        n,
     };
 }
 
@@ -48,4 +48,7 @@ export const actions: Actions = {
     gotoQuestion,
 };
 
-export type ActionTypes = NextQuestionAction | PreviousQuestionAction | GotoQuestionAction;
+export type ActionTypes =
+    | NextQuestionAction
+    | PreviousQuestionAction
+    | GotoQuestionAction;

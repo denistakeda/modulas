@@ -7,16 +7,18 @@ interface Props {
     actions: OOPActions;
 }
 
-
-const QuizView = ({quiz, actions}: Props) => (
+const QuizView = ({ quiz, actions }: Props) => (
     <div>
         <span className="current-number">
-            <button onClick={actions.previousQuestion} disabled={!quiz.hasPrevious()}>
-                { '<<' }
+            <button
+                onClick={actions.previousQuestion}
+                disabled={!quiz.hasPrevious()}
+            >
+                {'<<'}
             </button>
-            <span>{ quiz.currentNumber() }</span>
+            <span>{quiz.currentNumber()}</span>
             <button onClick={actions.nextQuestion} disabled={!quiz.hasNext()}>
-                { '>>' }
+                {'>>'}
             </button>
         </span>
     </div>

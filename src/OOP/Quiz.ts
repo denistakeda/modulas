@@ -6,7 +6,11 @@ export default class Quiz {
     private readonly nextL: Array<Question>;
     private readonly l: number;
 
-    private constructor(prevL: Array<Question>, current: Question, nextL: Array<Question>) {
+    private constructor(
+        prevL: Array<Question>,
+        current: Question,
+        nextL: Array<Question>
+    ) {
         this.prevL = prevL;
         this.current = current;
         this.nextL = nextL;
@@ -14,7 +18,10 @@ export default class Quiz {
     }
 
     public static init(list: Array<Question>): Quiz {
-        if (list.length < 1) throw new Error('Illegal argument. The list should be at least 1 element long');
+        if (list.length < 1)
+            throw new Error(
+                'Illegal argument. The list should be at least 1 element long'
+            );
 
         const [first, ...next] = list;
         return new Quiz([], first, next);
@@ -50,7 +57,8 @@ export default class Quiz {
 
     public gotoNth(n: number) {
         const lst = this.toArray();
-        if (lst.length <= n) throw new Error(`There is no question with index ${n}`);
+        if (lst.length <= n)
+            throw new Error(`There is no question with index ${n}`);
 
         const prevL = lst.slice(0, n);
         const current = lst[n];

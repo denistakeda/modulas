@@ -1,3 +1,1 @@
-export default class Question {
-
-}
+export default class Question {}
