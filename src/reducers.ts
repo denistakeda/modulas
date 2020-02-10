@@ -4,16 +4,22 @@ import Quiz from '~/OOP/Quiz';
 import Question from '~/OOP/Question';
 
 const defaultState: State = {
-    quiz: Quiz.init([new Question()]),
+    quiz: Quiz.init([
+        new Question(),
+        new Question(),
+        new Question(),
+        new Question(),
+        new Question(),
+    ]),
 }
 
 export function rootReducer(state: State = defaultState, action: Actions.ActionTypes) {
     switch (action.type) {
-        case Actions.NEXT_QUESTION:
+        case Actions.OOP_NEXT_QUESTION:
             return {...state, quiz: state.quiz.next()};
-        case Actions.PREVIOUS_QUESTION:
+        case Actions.OOP_PREVIOUS_QUESTION:
             return {...state, quiz: state.quiz.previous()};
-        case Actions.GOTO_QUESTION:
+        case Actions.OOP_GOTO_QUESTION:
             return {...state, quiz: state.quiz.gotoNth(action.n)};
         default:
             return state;

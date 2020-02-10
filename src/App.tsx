@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { State } from '~/State';
-import {QuizView, default as Quiz} from '~/OOP/Quiz';
+import Quiz from '~/OOP/Quiz';
+import QuizView from '~/OOP/components/Quiz';
 import { connect } from 'react-redux';
 import * as Actions from '~/Actions';
 
@@ -12,29 +13,29 @@ function mapStateToProps(state: State): StateProps {
     return { quiz: state.quiz };
 }
 
-interface DispatchProps {
-    nextQuestion: () => void;
-    previousQuestion: () => void;
-    gotoQuestion: (n: number) => void;
-}
-
-const mapDispatchToProps: DispatchProps = {
-    nextQuestion: Actions.nextQuestion,
-    previousQuestion: Actions.previousQuestion,
-    gotoQuestion: Actions.gotoQuestion,
-};
-
 interface OwnProps {
     // Nothing here
 }
 
-type Props = StateProps & DispatchProps & OwnProps;
+type Props = StateProps & Actions.Actions & OwnProps;
 
-function App(props: Props) {
-    return <div><QuizView quiz={props.quiz} /></div>;
+function App({
+    quiz,
+    nextQuestion,
+    previousQuestion,
+    gotoQuestion,
+}: Props) {
+    return (
+        <div>
+            <QuizView
+                quiz={quiz}
+                actions={{nextQuestion, previousQuestion, gotoQuestion}}
+            />
+        </div>
+    );
 }
 
-export default connect<StateProps, DispatchProps, OwnProps>(
+export default connect<StateProps, Actions.Actions, OwnProps>(
     mapStateToProps,
-    mapDispatchToProps
+    Actions.actions
 )(App);

@@ -1,6 +1,4 @@
-import * as React from 'react';
 import Question from '~/OOP/Question';
-
 
 export default class Quiz {
     private readonly prevL: Array<Question>;
@@ -26,6 +24,10 @@ export default class Quiz {
         return this.current;
     }
 
+    public currentNumber(): number {
+        return this.prevL.length;
+    }
+
     public hasNext(): boolean {
         return this.nextL.length != 0;
     }
@@ -43,7 +45,7 @@ export default class Quiz {
     public previous(): Quiz {
         if (!this.hasPrevious()) return this;
 
-        return this.gotoNth(this.previous.length - 1);
+        return this.gotoNth(this.prevL.length - 1);
     }
 
     public gotoNth(n: number) {
@@ -63,11 +65,4 @@ export default class Quiz {
     private toArray(): Array<Question> {
         return [...this.prevL, this.current, ...this.nextL];
     }
-
 }
-
-export interface Props {
-    quiz: Quiz;
-}
-
-export const QuizView = (props: Props) => <div>Hello there!! the size is {props.quiz.size()}</div>
