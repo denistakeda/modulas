@@ -1,5 +1,6 @@
 $lightest-grey-color: #f0f0f0;
 $light-grey-color: #e0e0e0;
+$green-color: #28a745;
 
 .app {
     .quiz {
@@ -23,6 +24,19 @@ $light-grey-color: #e0e0e0;
                     background-color: $lightest-grey-color;
                 }
             }
+        }
+
+        .finish-button {
+            width: 100%;
+            padding: 1rem;
+            cursor: pointer;
+            background-color: $green-color;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            outline: none;
+            margin-top: .5rem;
         }
 
         .question {

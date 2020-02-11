@@ -17,8 +17,11 @@ function renderIndexes(
     for (let i = 0; i < amount; i++) {
         list.push(
             <div
-                className={`quiz-navigation-item ${i == current ? 'selected' : ''}`}
+                className={`quiz-navigation-item ${
+                    i == current ? 'selected' : ''
+                }`}
                 onClick={() => gotoQuestion(i)}
+                key={i}
             >
                 {i + 1}
             </div>
@@ -47,6 +50,9 @@ const QuizView = ({ quiz, actions }: Props) => (
                 {'>>'}
             </button>
         </div>
+        {quiz.fullyAnswered() && (
+            <button className="finish-button">Finish</button>
+        )}
         <Question
             question={quiz.getCurrent()}
             actions={{ answerQuestion: actions.answerQuestion }}

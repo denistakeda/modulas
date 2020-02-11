@@ -23,6 +23,10 @@ export default class Question {
         return new Question(this.text, this.answers, this.correctAnswer, n);
     }
 
+    public isAnswered(): boolean {
+        return typeof this.selectedAnswer != 'undefined';
+    }
+
     public isSelectedAnswer(n: number) {
         return n == this.selectedAnswer;
     }

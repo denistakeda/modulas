@@ -56,6 +56,7 @@ export default class Quiz {
     }
 
     public gotoNth(n: number) {
+        if (this.prevL.length == n) return this;
         const lst = this.toArray();
         if (lst.length <= n)
             throw new Error(`There is no question with index ${n}`);
@@ -72,6 +73,13 @@ export default class Quiz {
 
     public answerCurrentQuestion(n: number): Quiz {
         return new Quiz(this.prevL, this.current.answer(n), this.nextL);
+    }
+
+    public fullyAnswered(): boolean {
+        for (const question of this.toArray()) {
+            if (!question.isAnswered()) return false;
+        }
+        return true;
     }
 
     private toArray(): Array<Question> {
