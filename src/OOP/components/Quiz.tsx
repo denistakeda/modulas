@@ -16,12 +16,12 @@ function renderIndexes(
     let list = [];
     for (let i = 0; i < amount; i++) {
         list.push(
-            <span
-                className={`quiz-navigation ${i == current ? 'selected' : ''}`}
+            <div
+                className={`quiz-navigation-item ${i == current ? 'selected' : ''}`}
                 onClick={() => gotoQuestion(i)}
             >
                 {i + 1}
-            </span>
+            </div>
         );
     }
     return list;

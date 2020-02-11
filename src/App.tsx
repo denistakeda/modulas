@@ -27,7 +27,7 @@ function App({
     answerQuestion,
 }: Props) {
     return (
-        <div>
+        <div className="app">
             <QuizView
                 quiz={quiz}
                 actions={{
