@@ -4,7 +4,7 @@ import * as Actions from '~/Actions';
 
 interface Props {
     question: Question;
-    actions: Pick<Actions.Actions, 'answerQuestion'>;
+    actions: Pick<Actions.Actions, 'oopAnswerQuestion'>;
 }
 
 const QuestionView = ({ question, actions }: Props) => (
@@ -17,7 +17,7 @@ const QuestionView = ({ question, actions }: Props) => (
                     className={`question-answer ${
                         question.isSelectedAnswer(i) ? 'selected' : ''
                     }`}
-                    onClick={() => actions.answerQuestion(i)}
+                    onClick={() => actions.oopAnswerQuestion(i)}
                 >
                     {answer}
                 </div>

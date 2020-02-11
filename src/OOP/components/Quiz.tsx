@@ -35,7 +35,7 @@ function renderQuiz({ quiz, actions }: Props) {
         <div className="quiz">
             <div className="quiz-navigation">
                 <button
-                    onClick={actions.previousQuestion}
+                    onClick={actions.oopPreviousQuestion}
                     disabled={!quiz.hasPrevious()}
                 >
                     {'<<'}
@@ -44,24 +44,27 @@ function renderQuiz({ quiz, actions }: Props) {
                 {renderIndexes(
                     quiz.size(),
                     quiz.currentNumber(),
-                    actions.gotoQuestion
+                    actions.oopGotoQuestion
                 )}
 
                 <button
-                    onClick={actions.nextQuestion}
+                    onClick={actions.oopNextQuestion}
                     disabled={!quiz.hasNext()}
                 >
                     {'>>'}
                 </button>
             </div>
             {quiz.fullyAnswered() && (
-                <button className="finish-button" onClick={actions.finishQuiz}>
+                <button
+                    className="finish-button"
+                    onClick={actions.oopFinishQuiz}
+                >
                     Finish
                 </button>
             )}
             <Question
                 question={quiz.getCurrent()}
-                actions={{ answerQuestion: actions.answerQuestion }}
+                actions={{ oopAnswerQuestion: actions.oopAnswerQuestion }}
             />
         </div>
     );

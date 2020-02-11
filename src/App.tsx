@@ -21,22 +21,22 @@ type Props = StateProps & Actions.Actions & OwnProps;
 
 function App({
     quiz,
-    nextQuestion,
-    previousQuestion,
-    gotoQuestion,
-    answerQuestion,
-    finishQuiz,
+    oopNextQuestion,
+    oopPreviousQuestion,
+    oopGotoQuestion,
+    oopAnswerQuestion,
+    oopFinishQuiz,
 }: Props) {
     return (
         <div className="app">
             <QuizView
                 quiz={quiz}
                 actions={{
-                    nextQuestion,
-                    previousQuestion,
-                    gotoQuestion,
-                    answerQuestion,
-                    finishQuiz,
+                    oopNextQuestion,
+                    oopPreviousQuestion,
+                    oopGotoQuestion,
+                    oopAnswerQuestion,
+                    oopFinishQuiz,
                 }}
             />
         </div>

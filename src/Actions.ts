@@ -4,79 +4,79 @@ export const OOP_GOTO_QUESTION = 'OOP/GOTO_QUESTION';
 export const OOP_ANSWER_QUESTION = 'OOP/ANSWER_QUESTION';
 export const OOP_FINISH_QUIZ = 'OOP/FINISH_QUIZ';
 
-interface NextQuestionAction {
+interface OOPNextQuestionAction {
     type: typeof OOP_NEXT_QUESTION;
 }
 
-export function nextQuestion(): NextQuestionAction {
+export function oopNextQuestion(): OOPNextQuestionAction {
     return {
         type: OOP_NEXT_QUESTION,
     };
 }
 
-interface PreviousQuestionAction {
+interface OOPPreviousQuestionAction {
     type: typeof OOP_PREVIOUS_QUESTION;
 }
 
-export function previousQuestion(): PreviousQuestionAction {
+export function oopPreviousQuestion(): OOPPreviousQuestionAction {
     return {
         type: OOP_PREVIOUS_QUESTION,
     };
 }
 
-interface GotoQuestionAction {
+interface OOPGotoQuestionAction {
     type: typeof OOP_GOTO_QUESTION;
     n: number;
 }
 
-export function gotoQuestion(n: number): GotoQuestionAction {
+export function oopGotoQuestion(n: number): OOPGotoQuestionAction {
     return {
         type: OOP_GOTO_QUESTION,
         n,
     };
 }
 
-export interface AnswerQuestionAction {
+export interface OOPAnswerQuestionAction {
     type: typeof OOP_ANSWER_QUESTION;
     answerNumber: number;
 }
 
-export function answerQuestion(answerNumber: number): AnswerQuestionAction {
+export function oopAnswerQuestion(answerNumber: number): OOPAnswerQuestionAction {
     return {
         type: OOP_ANSWER_QUESTION,
         answerNumber,
     };
 }
 
-export interface FinishQuizAction {
+export interface OOPFinishQuizAction {
     type: typeof OOP_FINISH_QUIZ;
 }
 
-export function finishQuiz(): FinishQuizAction {
+export function oopFinishQuiz(): OOPFinishQuizAction {
     return { type: OOP_FINISH_QUIZ };
 }
 
 export interface OOPActions {
-    nextQuestion: typeof nextQuestion;
-    previousQuestion: typeof previousQuestion;
-    gotoQuestion: typeof gotoQuestion;
-    answerQuestion: typeof answerQuestion;
-    finishQuiz: typeof finishQuiz;
+    oopNextQuestion: typeof oopNextQuestion;
+    oopPreviousQuestion: typeof oopPreviousQuestion;
+    oopGotoQuestion: typeof oopGotoQuestion;
+    oopAnswerQuestion: typeof oopAnswerQuestion;
+    oopFinishQuiz: typeof oopFinishQuiz;
 }
 
 export type Actions = OOPActions;
 
 export const actions: Actions = {
-    nextQuestion,
-    previousQuestion,
-    gotoQuestion,
-    answerQuestion,
-    finishQuiz,
+    oopNextQuestion,
+    oopPreviousQuestion,
+    oopGotoQuestion,
+    oopAnswerQuestion,
+    oopFinishQuiz,
 };
 
 export type ActionTypes =
-    | NextQuestionAction
-    | PreviousQuestionAction
-    | GotoQuestionAction
-    | AnswerQuestionAction
-    | FinishQuizAction;
+    | OOPNextQuestionAction
+    | OOPPreviousQuestionAction
+    | OOPGotoQuestionAction
+    | OOPAnswerQuestionAction
+    | OOPFinishQuizAction;
