@@ -1,3 +1,36 @@
+// -- General Actions --
+
+export const SELECT_OOP = 'SELECT_OOP';
+export const SELECT_FP = 'SELECT_FP';
+
+interface SelectOOPAction {
+    type: typeof SELECT_OOP;
+}
+
+export function selectOOP() {
+    return { type: SELECT_OOP };
+}
+
+interface SelectFPAction {
+    type: typeof SELECT_FP;
+}
+
+export function selectFP() {
+    return { type: SELECT_FP };
+}
+
+export interface GeneralActions {
+    selectOOP: typeof selectOOP;
+    selectFP: typeof selectFP;
+}
+
+const generalActions: GeneralActions = {
+    selectOOP,
+    selectFP,
+};
+
+// -- OOP Actions --
+
 export const OOP_NEXT_QUESTION = 'OOP/NEXT_MESSAGE';
 export const OOP_PREVIOUS_QUESTION = 'OOP/PREVIOUS_MESSAGE';
 export const OOP_GOTO_QUESTION = 'OOP/GOTO_QUESTION';
@@ -8,7 +41,7 @@ interface OOPNextQuestionAction {
     type: typeof OOP_NEXT_QUESTION;
 }
 
-export function oopNextQuestion(): OOPNextQuestionAction {
+function oopNextQuestion(): OOPNextQuestionAction {
     return {
         type: OOP_NEXT_QUESTION,
     };
@@ -18,7 +51,7 @@ interface OOPPreviousQuestionAction {
     type: typeof OOP_PREVIOUS_QUESTION;
 }
 
-export function oopPreviousQuestion(): OOPPreviousQuestionAction {
+function oopPreviousQuestion(): OOPPreviousQuestionAction {
     return {
         type: OOP_PREVIOUS_QUESTION,
     };
@@ -29,30 +62,30 @@ interface OOPGotoQuestionAction {
     n: number;
 }
 
-export function oopGotoQuestion(n: number): OOPGotoQuestionAction {
+function oopGotoQuestion(n: number): OOPGotoQuestionAction {
     return {
         type: OOP_GOTO_QUESTION,
         n,
     };
 }
 
-export interface OOPAnswerQuestionAction {
+interface OOPAnswerQuestionAction {
     type: typeof OOP_ANSWER_QUESTION;
     answerNumber: number;
 }
 
-export function oopAnswerQuestion(answerNumber: number): OOPAnswerQuestionAction {
+function oopAnswerQuestion(answerNumber: number): OOPAnswerQuestionAction {
     return {
         type: OOP_ANSWER_QUESTION,
         answerNumber,
     };
 }
 
-export interface OOPFinishQuizAction {
+interface OOPFinishQuizAction {
     type: typeof OOP_FINISH_QUIZ;
 }
 
-export function oopFinishQuiz(): OOPFinishQuizAction {
+function oopFinishQuiz(): OOPFinishQuizAction {
     return { type: OOP_FINISH_QUIZ };
 }
 
@@ -64,9 +97,7 @@ export interface OOPActions {
     oopFinishQuiz: typeof oopFinishQuiz;
 }
 
-export type Actions = OOPActions;
-
-export const actions: Actions = {
+const oopActions: OOPActions = {
     oopNextQuestion,
     oopPreviousQuestion,
     oopGotoQuestion,
@@ -74,7 +105,18 @@ export const actions: Actions = {
     oopFinishQuiz,
 };
 
+// -- And one for rule them all --
+
+export type Actions = GeneralActions & OOPActions;
+
+export const actions: Actions = {
+    ...generalActions,
+    ...oopActions,
+};
+
 export type ActionTypes =
+    | SelectOOPAction
+    | SelectFPAction
     | OOPNextQuestionAction
     | OOPPreviousQuestionAction
     | OOPGotoQuestionAction

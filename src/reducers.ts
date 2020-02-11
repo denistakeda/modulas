@@ -4,6 +4,7 @@ import Quiz from '~/OOP/Quiz';
 import Question from '~/OOP/Question';
 
 const defaultState: State = {
+    mode: 'OOP',
     quiz: Quiz.init([
         new Question(
             'Do you like JavaScript?',
@@ -36,8 +37,15 @@ const defaultState: State = {
 export function rootReducer(
     state: State = defaultState,
     action: Actions.ActionTypes
-) {
+): State {
     switch (action.type) {
+        // -- General action handlers --
+        case Actions.SELECT_FP:
+            return { ...state, mode: 'FP' };
+        case Actions.SELECT_OOP:
+            return { ...state, mode: 'OOP' };
+
+        // -- OOP actions handlers --
         case Actions.OOP_NEXT_QUESTION:
             return { ...state, quiz: state.quiz.next() };
         case Actions.OOP_PREVIOUS_QUESTION:
@@ -53,6 +61,8 @@ export function rootReducer(
             };
         case Actions.OOP_FINISH_QUIZ:
             return { ...state, quiz: state.quiz.finish() };
+
+        // --
         default:
             return state;
     }

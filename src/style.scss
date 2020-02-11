@@ -4,6 +4,21 @@ $green-color: #28a745;
 $blue-color: #007bff;
 
 .app {
+    .mode-selector {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1rem;
+
+        button {
+            flex: 1;
+            padding: 1rem;
+            outline: none;
+
+            &.selected {
+                background-color: $light-grey-color;
+            }
+        }
+    }
     .quiz {
         .quiz-navigation {
             display: flex;
