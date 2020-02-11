@@ -25,6 +25,7 @@ function App({
     previousQuestion,
     gotoQuestion,
     answerQuestion,
+    finishQuiz,
 }: Props) {
     return (
         <div className="app">
@@ -35,6 +36,7 @@ function App({
                     previousQuestion,
                     gotoQuestion,
                     answerQuestion,
+                    finishQuiz,
                 }}
             />
         </div>

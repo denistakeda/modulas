@@ -30,34 +30,59 @@ function renderIndexes(
     return list;
 }
 
-const QuizView = ({ quiz, actions }: Props) => (
-    <div className="quiz">
-        <div className="quiz-navigation">
-            <button
-                onClick={actions.previousQuestion}
-                disabled={!quiz.hasPrevious()}
-            >
-                {'<<'}
-            </button>
+function renderQuiz({ quiz, actions }: Props) {
+    return (
+        <div className="quiz">
+            <div className="quiz-navigation">
+                <button
+                    onClick={actions.previousQuestion}
+                    disabled={!quiz.hasPrevious()}
+                >
+                    {'<<'}
+                </button>
 
-            {renderIndexes(
-                quiz.size(),
-                quiz.currentNumber(),
-                actions.gotoQuestion
+                {renderIndexes(
+                    quiz.size(),
+                    quiz.currentNumber(),
+                    actions.gotoQuestion
+                )}
+
+                <button
+                    onClick={actions.nextQuestion}
+                    disabled={!quiz.hasNext()}
+                >
+                    {'>>'}
+                </button>
+            </div>
+            {quiz.fullyAnswered() && (
+                <button className="finish-button" onClick={actions.finishQuiz}>
+                    Finish
+                </button>
             )}
-
-            <button onClick={actions.nextQuestion} disabled={!quiz.hasNext()}>
-                {'>>'}
-            </button>
+            <Question
+                question={quiz.getCurrent()}
+                actions={{ answerQuestion: actions.answerQuestion }}
+            />
         </div>
-        {quiz.fullyAnswered() && (
-            <button className="finish-button">Finish</button>
-        )}
-        <Question
-            question={quiz.getCurrent()}
-            actions={{ answerQuestion: actions.answerQuestion }}
-        />
-    </div>
-);
+    );
+}
+
+function renderScore({ quiz }: Props) {
+    const [score, total] = quiz.getScore();
+    return (
+        <div className="score">
+            <div>
+                <span>Congratulations! you answered correctly </span>
+                <span className="user-score">{score}</span>
+                <span> questions out of </span>
+                <span className="total-score">{total}</span>
+                <span>!</span>
+            </div>
+        </div>
+    );
+}
+
+const QuizView = (props: Props) =>
+    props.quiz.isFinished() ? renderScore(props) : renderQuiz(props);
 
 export default QuizView;

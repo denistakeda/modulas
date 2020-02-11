@@ -27,6 +27,12 @@ export default class Question {
         return typeof this.selectedAnswer != 'undefined';
     }
 
+    public isAnsweredCorrectly(): boolean {
+        if (typeof this.selectedAnswer == 'undefined') return false;
+
+        return this.selectedAnswer == this.correctAnswer;
+    }
+
     public isSelectedAnswer(n: number) {
         return n == this.selectedAnswer;
     }

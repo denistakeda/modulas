@@ -1,6 +1,7 @@
 $lightest-grey-color: #f0f0f0;
 $light-grey-color: #e0e0e0;
 $green-color: #28a745;
+$blue-color: #007bff;
 
 .app {
     .quiz {
@@ -62,6 +63,23 @@ $green-color: #28a745;
                     background-color: $lightest-grey-color;
                 }
             }
+        }
+    }
+    .score {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+
+        .user-score {
+            font-weight: bold;
+            color: $green-color;
+        }
+        .total-score {
+            font-weight: bold;
+            color: $blue-color;
         }
     }
 }

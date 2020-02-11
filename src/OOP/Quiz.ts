@@ -5,16 +5,19 @@ export default class Quiz {
     private readonly current: Question;
     private readonly nextL: Array<Question>;
     private readonly l: number;
+    private readonly finished: boolean;
 
     private constructor(
         prevL: Array<Question>,
         current: Question,
-        nextL: Array<Question>
+        nextL: Array<Question>,
+        finished = false
     ) {
         this.prevL = prevL;
         this.current = current;
         this.nextL = nextL;
         this.l = prevL.length + 1 + nextL.length;
+        this.finished = finished;
     }
 
     public static init(list: Array<Question>): Quiz {
@@ -80,6 +83,28 @@ export default class Quiz {
             if (!question.isAnswered()) return false;
         }
         return true;
+    }
+
+    public finish(): Quiz {
+        if (!this.fullyAnswered())
+            throw new Error("It's not allowed to finish unanswered quiz");
+
+        return new Quiz(this.prevL, this.current, this.nextL, true);
+    }
+
+    public isFinished(): boolean {
+        return this.finished;
+    }
+
+    public getScore(): [number, number] {
+        const questions = this.toArray();
+        let score = 0;
+        for (const question of questions) {
+            if (question.isAnsweredCorrectly()) {
+                score++;
+            }
+        }
+        return [score, questions.length];
     }
 
     private toArray(): Array<Question> {
