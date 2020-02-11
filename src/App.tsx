@@ -19,12 +19,23 @@ interface OwnProps {
 
 type Props = StateProps & Actions.Actions & OwnProps;
 
-function App({ quiz, nextQuestion, previousQuestion, gotoQuestion }: Props) {
+function App({
+    quiz,
+    nextQuestion,
+    previousQuestion,
+    gotoQuestion,
+    answerQuestion,
+}: Props) {
     return (
         <div>
             <QuizView
                 quiz={quiz}
-                actions={{ nextQuestion, previousQuestion, gotoQuestion }}
+                actions={{
+                    nextQuestion,
+                    previousQuestion,
+                    gotoQuestion,
+                    answerQuestion,
+                }}
             />
         </div>
     );

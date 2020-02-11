@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Quiz from '~/OOP/Quiz';
 import { OOPActions } from '~/OOP/Actions';
+import Question from '~/OOP/components/Question';
 
 interface Props {
     quiz: Quiz;
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const QuizView = ({ quiz, actions }: Props) => (
-    <div>
+    <div className="quiz">
         <span className="current-number">
             <button
                 onClick={actions.previousQuestion}
@@ -20,6 +21,10 @@ const QuizView = ({ quiz, actions }: Props) => (
             <button onClick={actions.nextQuestion} disabled={!quiz.hasNext()}>
                 {'>>'}
             </button>
+            <Question
+                question={quiz.getCurrent()}
+                actions={{ answerQuestion: actions.answerQuestion }}
+            />
         </span>
     </div>
 );

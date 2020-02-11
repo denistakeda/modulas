@@ -70,6 +70,10 @@ export default class Quiz {
         return this.l;
     }
 
+    public answerCurrentQuestion(n: number): Quiz {
+        return new Quiz(this.prevL, this.current.answer(n), this.nextL);
+    }
+
     private toArray(): Array<Question> {
         return [...this.prevL, this.current, ...this.nextL];
     }
