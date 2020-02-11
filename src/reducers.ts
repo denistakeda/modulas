@@ -47,7 +47,7 @@ export function rootReducer(
         case Actions.OOP_ANSWER_QUESTION:
             return {
                 ...state,
-                quiz: state.quiz.answerCurrentQuestion(action.answerNumber),
+                quiz: state.quiz.answerCurrentQuestion(action.answerNumber).next(),
             };
         default:
             return state;
