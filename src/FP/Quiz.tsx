@@ -215,7 +215,18 @@ function renderQuiz(quiz: Active, actions: FPActions) {
 }
 
 function renderScore(quiz: Scored) {
-    return <div className="score">Score</div>;
+    const [score, total] = quiz.score;
+    return (
+        <div className="score">
+            <div>
+                <span>Congratulations! you answered correctly </span>
+                <span className="user-score">{score}</span>
+                <span> questions out of </span>
+                <span className="total-score">{total}</span>
+                <span>!</span>
+            </div>
+        </div>
+    );
 }
 
 function renderIndexes(quiz: Active, gotoQuestion: (n: number) => void) {

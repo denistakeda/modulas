@@ -31,6 +31,10 @@ export function init(
     answers: Array<string>,
     correctAnswer: number
 ): Question {
+    if (correctAnswer >= answers.length)
+        throw new Error(
+            `There are only ${answers.length}, number ${correctAnswer} can't be valid answer`
+        );
     return {
         kind: UNANSWERED,
         text,
@@ -40,7 +44,12 @@ export function init(
 }
 
 export function isAnsweredCorrectly(question: Question): boolean {
-    return true; //TODO
+    switch (question.kind) {
+        case UNANSWERED:
+            return false;
+        case ANSWERED:
+            return question.correctAnswer == question.selectedAnswer;
+    }
 }
 
 export function isAnswered(question: Question): boolean {
@@ -48,13 +57,32 @@ export function isAnswered(question: Question): boolean {
 }
 
 export function answer(n: number, question: Question): Question {
-    return question; //TODO
+    switch (question.kind) {
+        case UNANSWERED: {
+            if (n >= question.answers.length)
+                throw new Error(
+                    `There are only ${question.answers.length} answers. You can't select question number ${n}`
+                );
+            return { ...question, kind: ANSWERED, selectedAnswer: n };
+        }
+        case ANSWERED:
+            return question;
+    }
 }
 
 // -- Private helpers --
 
+function _getSelectedAnswer(question: Answered): string {
+    return question.answers[question.selectedAnswer];
+}
+
 function _isSelectedAnswer(answer: string, question: Question): boolean {
-    return false; //TODO
+    switch (question.kind) {
+        case UNANSWERED:
+            return false;
+        case ANSWERED:
+            return answer == _getSelectedAnswer(question);
+    }
 }
 
 // -- View --
