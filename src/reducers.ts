@@ -2,9 +2,10 @@ import * as Actions from '~/Actions';
 import { State } from '~/State';
 import Quiz from '~/OOP/Quiz';
 import Question from '~/OOP/Question';
+import * as FPQuiz from '~/FP/Quiz';
 
 const defaultState: State = {
-    mode: 'OOP',
+    mode: 'FP',
     quiz: Quiz.init([
         new Question(
             'Do you like JavaScript?',
@@ -32,6 +33,7 @@ const defaultState: State = {
             2
         ),
     ]),
+    fpQuiz: FPQuiz.init([{}, {}, {}, {}, {}]),
 };
 
 export function rootReducer(

@@ -105,13 +105,38 @@ const oopActions: OOPActions = {
     oopFinishQuiz,
 };
 
+// -- FP Actions --
+
+export const FP_ANSWER_QUESTION = 'FP/ANSWER_QUESTION';
+
+interface FPAnswerQuestionAction {
+    type: typeof FP_ANSWER_QUESTION;
+    n: number;
+}
+
+function fpAnswerQuestion(n: number): FPAnswerQuestionAction {
+    return {
+        type: FP_ANSWER_QUESTION,
+        n,
+    };
+}
+
+export interface FPActions {
+    fpAnswerQuestion: typeof fpAnswerQuestion;
+}
+
+const fpActions: FPActions = {
+    fpAnswerQuestion,
+};
+
 // -- And one for rule them all --
 
-export type Actions = GeneralActions & OOPActions;
+export type Actions = GeneralActions & OOPActions & FPActions;
 
 export const actions: Actions = {
     ...generalActions,
     ...oopActions,
+    ...fpActions,
 };
 
 export type ActionTypes =
@@ -121,4 +146,5 @@ export type ActionTypes =
     | OOPPreviousQuestionAction
     | OOPGotoQuestionAction
     | OOPAnswerQuestionAction
-    | OOPFinishQuizAction;
+    | OOPFinishQuizAction
+    | FPAnswerQuestionAction;

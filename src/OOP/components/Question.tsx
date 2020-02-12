@@ -10,7 +10,7 @@ interface Props {
 const QuestionView = ({ question, actions }: Props) => (
     <div className="question">
         <div className="question-text">{question.text}</div>
-        <div className="question-answes">
+        <div className="question-answers">
             {question.answers.map((answer, i) => (
                 <div
                     key={i}

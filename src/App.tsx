@@ -1,17 +1,23 @@
 import * as React from 'react';
 import { State, Mode } from '~/State';
-import Quiz from '~/OOP/Quiz';
-import QuizView from '~/OOP/components/Quiz';
+import OOPQuiz from '~/OOP/Quiz';
+import OOPQuizView from '~/OOP/components/Quiz';
 import { connect } from 'react-redux';
 import * as Actions from '~/Actions';
+import * as FPQuiz from '~/FP/Quiz';
 
 interface StateProps {
     mode: Mode;
-    quiz: Quiz;
+    quiz: OOPQuiz;
+    fpQuiz: FPQuiz.Quiz;
 }
 
 function mapStateToProps(state: State): StateProps {
-    return { mode: state.mode, quiz: state.quiz };
+    return {
+        mode: state.mode,
+        quiz: state.quiz,
+        fpQuiz: state.fpQuiz,
+    };
 }
 
 interface OwnProps {
@@ -23,6 +29,7 @@ type Props = StateProps & Actions.Actions & OwnProps;
 function App({
     mode,
     quiz,
+    fpQuiz,
     selectOOP,
     selectFP,
     oopNextQuestion,
@@ -34,16 +41,21 @@ function App({
     return (
         <div className="app">
             {renderModeSelectionPanel(mode, selectOOP, selectFP)}
-            <QuizView
-                quiz={quiz}
-                actions={{
-                    oopNextQuestion,
-                    oopPreviousQuestion,
-                    oopGotoQuestion,
-                    oopAnswerQuestion,
-                    oopFinishQuiz,
-                }}
-            />
+
+            {mode == 'OOP' ? (
+                <OOPQuizView
+                    quiz={quiz}
+                    actions={{
+                        oopNextQuestion,
+                        oopPreviousQuestion,
+                        oopGotoQuestion,
+                        oopAnswerQuestion,
+                        oopFinishQuiz,
+                    }}
+                />
+            ) : (
+                <FPQuiz.View quiz={fpQuiz} actions={{}} />
+            )}
         </div>
     );
 }
