@@ -104,7 +104,7 @@ function renderModeSelectionPanel(
     );
 }
 
-export default connect<StateProps, Actions.Actions, OwnProps>(
+export default connect<StateProps, Actions.Actions, OwnProps, State>(
     mapStateToProps,
     Actions.actions
 )(App);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Quiz from '~/OOP/Quiz';
-import { OOPActions } from '~/OOP/Actions';
+import { OOPActions } from '~/Actions';
 import Question from '~/OOP/components/Question';
 
 interface Props {

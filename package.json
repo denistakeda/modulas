@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently --kill-others \"npm:compile:watch\" \"npm:dev:server\"",
+    "dev:server": "parcel ./src/index.html",
+    "compile:watch": "tsc -p . --noEmit --watch",
     "format": "prettier --write \"src/**/*.ts\" && prettier --write \"src/**/*.tsx\""
   },
   "author": "",
@@ -13,6 +16,8 @@
     "@types/parcel-env": "0.0.0",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
+    "@types/react-redux": "^7.1.7",
+    "concurrently": "^5.1.0",
     "prettier": "1.19.1",
     "sass": "^1.25.0",
     "typescript": "^3.7.5"
