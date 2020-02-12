@@ -27,16 +27,28 @@ interface OwnProps {
 type Props = StateProps & Actions.Actions & OwnProps;
 
 function App({
+    // State
     mode,
     quiz,
     fpQuiz,
+
+    // General actions
     selectOOP,
     selectFP,
+
+    // OOP actions
     oopNextQuestion,
     oopPreviousQuestion,
     oopGotoQuestion,
     oopAnswerQuestion,
     oopFinishQuiz,
+
+    //FP actions
+    fpNextQuestion,
+    fpPreviousQuestion,
+    fpGotoQuestion,
+    fpAnswerQuestion,
+    fpFinishQuiz,
 }: Props) {
     return (
         <div className="app">
@@ -54,7 +66,16 @@ function App({
                     }}
                 />
             ) : (
-                <FPQuiz.View quiz={fpQuiz} actions={{}} />
+                <FPQuiz.View
+                    quiz={fpQuiz}
+                    actions={{
+                        fpNextQuestion,
+                        fpPreviousQuestion,
+                        fpGotoQuestion,
+                        fpAnswerQuestion,
+                        fpFinishQuiz,
+                    }}
+                />
             )}
         </div>
     );

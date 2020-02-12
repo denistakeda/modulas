@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Question, default as QuestionM } from '~/FP/Question';
+import * as QuestionM from '~/FP/Question';
 import { FPActions } from '~/Actions';
 
 // -- Type definition --
@@ -11,9 +11,9 @@ const SCORED = 'SCORED';
 type Active = Readonly<{
     kind: typeof ACTIVE;
 
-    prevL: Array<Question>;
-    current: Question;
-    nextL: Array<Question>;
+    prevL: Array<QuestionM.Question>;
+    current: QuestionM.Question;
+    nextL: Array<QuestionM.Question>;
 }>;
 
 type Score = [number, number];
@@ -28,7 +28,10 @@ export type Quiz = Active | Scored;
 
 // -- Public API --
 
-export function init([first, ...rest]: [Question, ...Question[]]): Quiz {
+export function init([first, ...rest]: [
+    QuestionM.Question,
+    ...QuestionM.Question[]
+]): Quiz {
     return {
         kind: ACTIVE,
         prevL: [],
@@ -83,6 +86,16 @@ export function finish(quiz: Quiz): Quiz {
     }
 }
 
+export function answerCurrentQuestion(n: number, quiz: Quiz): Quiz {
+    switch (quiz.kind) {
+        case ACTIVE:
+            return _answerCurrentQuestion(n, quiz);
+        case SCORED:
+            // It doesn't make sense to answer already scored quiz
+            return quiz;
+    }
+}
+
 // -- Private helpers --
 
 function _gotoNth(n: number, quiz: Active): Active {
@@ -99,7 +112,11 @@ function _gotoNth(n: number, quiz: Active): Active {
     return { kind: ACTIVE, prevL, current, nextL };
 }
 
-function _toArray({ prevL, current, nextL }: Active): Array<Question> {
+function _toArray({
+    prevL,
+    current,
+    nextL,
+}: Active): Array<QuestionM.Question> {
     return [...prevL, current, ...nextL];
 }
 
@@ -114,11 +131,35 @@ function _hasPrevious({ prevL }: Active): boolean {
 function _score(quiz: Active): Score {
     const questions = _toArray(quiz);
     const score = questions.reduce(
-        (s: number, q: Question) =>
+        (s: number, q: QuestionM.Question) =>
             QuestionM.isAnsweredCorrectly(q) ? s + 1 : s,
         0
     );
     return [score, questions.length];
+}
+
+function _answerCurrentQuestion(n: number, quiz: Active): Active {
+    return {
+        ...quiz,
+        current: QuestionM.answer(n, quiz.current),
+    };
+}
+
+function _fullyAnswered(quiz: Quiz): boolean {
+    switch (quiz.kind) {
+        case ACTIVE:
+            return _toArray(quiz).every(QuestionM.isAnswered);
+        case SCORED:
+            return true;
+    }
+}
+
+function _size(quiz: Active): number {
+    return quiz.prevL.length + 1 + quiz.nextL.length;
+}
+
+function _currentNumber(quiz: Active): number {
+    return quiz.prevL.length;
 }
 
 // -- View --
@@ -138,9 +179,60 @@ export const View = ({ quiz, actions }: Props) => {
 };
 
 function renderQuiz(quiz: Active, actions: FPActions) {
-    return <div className="quiz">Quiz</div>;
+    return (
+        <div className="quiz">
+            <div className="quiz-navigation">
+                <button
+                    onClick={actions.fpPreviousQuestion}
+                    disabled={!_hasPrevious(quiz)}
+                >
+                    {'<<'}
+                </button>
+
+                {renderIndexes(quiz, actions.fpGotoQuestion)}
+
+                <button
+                    onClick={actions.fpNextQuestion}
+                    disabled={!_hasNext(quiz)}
+                >
+                    {'>>'}
+                </button>
+            </div>
+            {_fullyAnswered(quiz) && (
+                <button
+                    className="finish-button"
+                    onClick={actions.fpFinishQuiz}
+                >
+                    Finish
+                </button>
+            )}
+            <QuestionM.View
+                question={quiz.current}
+                actions={{ fpAnswerQuestion: actions.fpAnswerQuestion }}
+            />
+        </div>
+    );
 }
 
 function renderScore(quiz: Scored) {
     return <div className="score">Score</div>;
+}
+
+function renderIndexes(quiz: Active, gotoQuestion: (n: number) => void) {
+    const currentNumber = _currentNumber(quiz);
+    let list = [];
+    for (let i = 0; i < _size(quiz); i++) {
+        list.push(
+            <div
+                className={`quiz-navigation-item ${
+                    i == currentNumber ? 'selected' : ''
+                }`}
+                onClick={() => gotoQuestion(i)}
+                key={i}
+            >
+                {i + 1}
+            </div>
+        );
+    }
+    return list;
 }

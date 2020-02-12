@@ -107,7 +107,43 @@ const oopActions: OOPActions = {
 
 // -- FP Actions --
 
+export const FP_NEXT_QUESTION = 'FP/NEXT_MESSAGE';
+export const FP_PREVIOUS_QUESTION = 'FP/PREVIOUS_MESSAGE';
+export const FP_GOTO_QUESTION = 'FP/GOTO_QUESTION';
 export const FP_ANSWER_QUESTION = 'FP/ANSWER_QUESTION';
+export const FP_FINISH_QUIZ = 'FP/FINISH_QUIZ';
+
+interface FPNextQuestionAction {
+    type: typeof FP_NEXT_QUESTION;
+}
+
+function fpNextQuestion(): FPNextQuestionAction {
+    return {
+        type: FP_NEXT_QUESTION,
+    };
+}
+
+interface FPPreviousQuestionAction {
+    type: typeof FP_PREVIOUS_QUESTION;
+}
+
+function fpPreviousQuestion(): FPPreviousQuestionAction {
+    return {
+        type: FP_PREVIOUS_QUESTION,
+    };
+}
+
+interface FPGotoQuestionAction {
+    type: typeof FP_GOTO_QUESTION;
+    n: number;
+}
+
+function fpGotoQuestion(n: number): FPGotoQuestionAction {
+    return {
+        type: FP_GOTO_QUESTION,
+        n,
+    };
+}
 
 interface FPAnswerQuestionAction {
     type: typeof FP_ANSWER_QUESTION;
@@ -121,12 +157,28 @@ function fpAnswerQuestion(n: number): FPAnswerQuestionAction {
     };
 }
 
+interface FPFinishQuizAction {
+    type: typeof FP_FINISH_QUIZ;
+}
+
+function fpFinishQuiz(): FPFinishQuizAction {
+    return { type: FP_FINISH_QUIZ };
+}
+
 export interface FPActions {
+    fpNextQuestion: typeof fpNextQuestion;
+    fpPreviousQuestion: typeof fpPreviousQuestion;
+    fpGotoQuestion: typeof fpGotoQuestion;
     fpAnswerQuestion: typeof fpAnswerQuestion;
+    fpFinishQuiz: typeof fpFinishQuiz;
 }
 
 const fpActions: FPActions = {
+    fpNextQuestion,
+    fpPreviousQuestion,
+    fpGotoQuestion,
     fpAnswerQuestion,
+    fpFinishQuiz,
 };
 
 // -- And one for rule them all --
@@ -147,4 +199,8 @@ export type ActionTypes =
     | OOPGotoQuestionAction
     | OOPAnswerQuestionAction
     | OOPFinishQuizAction
-    | FPAnswerQuestionAction;
+    | FPNextQuestionAction
+    | FPPreviousQuestionAction
+    | FPGotoQuestionAction
+    | FPAnswerQuestionAction
+    | FPFinishQuizAction;

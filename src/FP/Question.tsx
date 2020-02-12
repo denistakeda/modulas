@@ -26,14 +26,35 @@ export type Question = Unanswered | Answered;
 
 // -- Public API --
 
+export function init(
+    text: string,
+    answers: Array<string>,
+    correctAnswer: number
+): Question {
+    return {
+        kind: UNANSWERED,
+        text,
+        answers,
+        correctAnswer,
+    };
+}
+
 export function isAnsweredCorrectly(question: Question): boolean {
-    return true;
+    return true; //TODO
+}
+
+export function isAnswered(question: Question): boolean {
+    return question.kind == ANSWERED;
+}
+
+export function answer(n: number, question: Question): Question {
+    return question; //TODO
 }
 
 // -- Private helpers --
 
 function _isSelectedAnswer(answer: string, question: Question): boolean {
-    return false;
+    return false; //TODO
 }
 
 // -- View --
