@@ -20,14 +20,8 @@ export default class Quiz {
         this.finished = finished;
     }
 
-    public static init(list: Array<Question>): Quiz {
-        if (list.length < 1)
-            throw new Error(
-                'Illegal argument. The list should be at least 1 element long'
-            );
-
-        const [first, ...next] = list;
-        return new Quiz([], first, next);
+    public static init([first, ...rest]: [Question, ...Question[]]): Quiz {
+        return new Quiz([], first, rest);
     }
 
     public getCurrent(): Question {
